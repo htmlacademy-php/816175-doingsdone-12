@@ -86,12 +86,12 @@ $tasks = [
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                        <?foreach ($categories as $key => $value) {?>
+                        <?php foreach ($categories as $category) {?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=$value?></a>
+                            <a class="main-navigation__list-item-link" href="#"><?=$category?></a>
                             <span class="main-navigation__list-item-count">0</span>
                         </li>
-                        <?}?>
+                        <?php } ?>
                     </ul>
                 </nav>
 
@@ -118,21 +118,21 @@ $tasks = [
 
                     <label class="checkbox">
                         <!--добавить сюда атрибут "checked", если переменная $show_complete_tasks равна единице-->
-                        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?if ($show_complete_tasks == 1){?> checked <?}?>>
+                        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?php if ($show_complete_tasks == 1){?> checked <?php } ?>>
                         <span class="checkbox__text">Показывать выполненные</span>
                     </label>
                 </div>
 
                 <table class="tasks">
-                    <?foreach ($tasks as $item) { 
-                        if($item['isdone'] == true and $show_complete_tasks == 0){
+                    <?php foreach ($tasks as $item) { 
+                        if($item['isdone'] == true && $show_complete_tasks == 0){
                             continue;
                         }
                     ?>
-                        <tr class="tasks__item task <? if($item['isdone'] == true){?>task--completed<?}?>">
+                        <tr class="tasks__item task <?php if($item['isdone'] == true){?>task--completed<?php } ?>">
                             <td class="task__select">
                                 <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden" type="checkbox" <?if($item['isdone'] == true){?>checked<?}?> value="1">
+                                <input class="checkbox__input visually-hidden" type="checkbox" <?php if($item['isdone'] == true){?>checked<?php } ?> value="1">
                                 <span class="checkbox__text"><?=$item['title']?></span>
                                 </label>
                             </td>
@@ -144,7 +144,7 @@ $tasks = [
                             <td class="task__controls">
                             </td>
                         </tr>
-                    <? } ?>
+                    <?php } ?>
                 </table>
             </main>
         </div>
