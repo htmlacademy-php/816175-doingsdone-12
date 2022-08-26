@@ -46,9 +46,10 @@ $tasks = [
 ];
 
 // функция для подсчета количества задач в категории
-function calculate_tasks ($tasks, $category) {
+function calculate_tasks (array $tasks, string $category): int
+{
     return count(array_filter($tasks, function ($task) use($category) {
-        return $task['category'] == $category;
+        return $task['category'] === $category;
     }));
 }
 
