@@ -11,39 +11,49 @@ $tasks = [
         'title' => 'Собеседование в IT компании',
         'date' => '01.12.2019',
         'category' => 'Работа',
-        'isdone' => false
+        'isdone' => false,
     ],
     [
         'title' => 'Выполнить тестовое задание',
         'date' => '25.12.2019',
         'category' => 'Работа',
-        'isdone' => false
+        'isdone' => false,
     ],
     [
         'title' => 'Сделать задание первого раздела',
         'date' => '21.12.2019',
         'category' => 'Учеба',
-        'isdone' => true
+        'isdone' => true,
     ],
     [
         'title' => 'Встреча с другом',
         'date' => '22.12.2019',
         'category' => 'Входящие',
-        'isdone' => true
+        'isdone' => true,
     ],
     [
         'title' => 'Купить корм для кота',
         'date' => null,
         'category' => 'Домашние дела',
-        'isdone' => false
+        'isdone' => false,
     ],
     [
         'title' => 'Заказать пиццу',
         'date' => null,
         'category' => 'Домашние дела',
-        'isdone' => false
+        'isdone' => false,
     ],
 ];
+
+// функция для подсчета количества задач в категории
+function calculate_tasks (array $tasks, string $category): int
+{
+    return count(array_filter($tasks, function ($task) use($category) {
+        return $task['category'] === $category;
+    }));
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -89,7 +99,7 @@ $tasks = [
                         <?php foreach ($categories as $category) {?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$category?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count"><?=calculate_tasks($tasks, $category)?></span>
                         </li>
                         <?php } ?>
                     </ul>
