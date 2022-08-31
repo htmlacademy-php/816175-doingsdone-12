@@ -45,7 +45,17 @@
                 continue;
             }
         ?>
-            <tr class="tasks__item task <?php if ($item['isdone'] == true) { ?>task--completed<?php } ?>">
+            <tr class="tasks__item task 
+                <?php
+                // добавление класса, если задача выполнена
+                if ($item['isdone'] == true) { ?>
+                    task--completed
+                <?php }
+                // добавление класса, если задача не выполнена, а до конца выполнения меньше 24 часов
+                if (check_date(htmlspecialchars($item['date'])) && $item['isdone'] !== true) { ?>
+                    task--important
+                <?php } ?>
+            ">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($item['isdone'] == true) { ?>checked<?php } ?> value="1">
@@ -53,9 +63,9 @@
                     </label>
                 </td>
                 <!-- <td class="task__file">
-										<a class="download-link" href="#">Home.psd</a>
-								</td> -->
-                <td class="task__date"><?= htmlspecialchars($item['date']) ?></td>
+                    <a class="download-link" href="#">Home.psd</a>
+                </td> -->
+                <td class="task__date"><?= htmlspecialchars($item['date']); ?></td>
 
                 <td class="task__controls">
                 </td>
