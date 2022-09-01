@@ -52,23 +52,23 @@
             }
 
             $date = htmlspecialchars($item['date']);
-            $title = htmlspecialchars($item['date']);
+            $title = htmlspecialchars($item['title']);
             $is_done = $item['isdone'] == true;
         ?>
             <tr class="tasks__item task 
                 <?php
                 // добавление класса, если задача выполнена
-                if ($is_done) { ?>
-                    $task_classes['is_done'];
-                <?php }
+                if ($is_done) {
+                    print($task_classes['is_done']);
+                }
                 // добавление класса, если задача не выполнена, а до конца выполнения меньше 24 часов
                 if (check_date($date) && !$is_done) {
-                    $task_classes['is_important'];
+                    print($task_classes['is_important']);
                 } ?>
             ">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
-                        <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($is_done) { ?>checked<?php } ?> value="1">
+                        <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($item['isdone'] == true) { ?>checked<?php } ?> value="1">
                         <span class="checkbox__text"><?= $title ?></span>
                     </label>
                 </td>
