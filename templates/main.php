@@ -40,32 +40,42 @@
     </div>
 
     <table class="tasks">
-        <?php foreach ($tasks as $item) {
+        <?php
+        $task_classes = [
+            'is_done' => 'task--completed',
+            'is_important' => 'task--important',
+        ];
+
+        foreach ($tasks as $item) {
             if ($item['isdone'] == true && $show_complete_tasks == 0) {
                 continue;
             }
+
+            $date = htmlspecialchars($item['date']);
+            $title = htmlspecialchars($item['date']);
+            $is_done = $item['isdone'] == true;
         ?>
             <tr class="tasks__item task 
                 <?php
                 // добавление класса, если задача выполнена
-                if ($item['isdone'] == true) { ?>
-                    task--completed
+                if ($is_done) { ?>
+                    $task_classes['is_done'];
                 <?php }
                 // добавление класса, если задача не выполнена, а до конца выполнения меньше 24 часов
-                if (check_date(htmlspecialchars($item['date'])) && $item['isdone'] !== true) { ?>
-                    task--important
-                <?php } ?>
+                if (check_date($date) && !$is_done) {
+                    $task_classes['is_important'];
+                } ?>
             ">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
-                        <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($item['isdone'] == true) { ?>checked<?php } ?> value="1">
-                        <span class="checkbox__text"><?= htmlspecialchars($item['title']) ?></span>
+                        <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($is_done) { ?>checked<?php } ?> value="1">
+                        <span class="checkbox__text"><?= $title ?></span>
                     </label>
                 </td>
                 <!-- <td class="task__file">
                     <a class="download-link" href="#">Home.psd</a>
                 </td> -->
-                <td class="task__date"><?= htmlspecialchars($item['date']); ?></td>
+                <td class="task__date"><?= $date ?></td>
 
                 <td class="task__controls">
                 </td>
