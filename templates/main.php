@@ -5,8 +5,8 @@
         <ul class="main-navigation__list">
             <?php foreach ($categories as $category) { ?>
                 <li class="main-navigation__list-item">
-                    <a class="main-navigation__list-item-link" href="#"><?= htmlspecialchars($category) ?></a>
-                    <span class="main-navigation__list-item-count"><?= calculate_tasks($tasks, $category) ?></span>
+                    <a class="main-navigation__list-item-link" href="#"><?= htmlspecialchars($category); ?></a>
+                    <span class="main-navigation__list-item-count"><?= calculate_tasks($tasks, $category); ?></span>
                 </li>
             <?php } ?>
         </ul>
@@ -41,11 +41,6 @@
 
     <table class="tasks">
         <?php
-        $task_classes = [
-            'is_done' => 'task--completed',
-            'is_important' => 'task--important',
-        ];
-
         foreach ($tasks as $item) {
             if ($item['isdone'] == true && $show_complete_tasks == 0) {
                 continue;
@@ -53,29 +48,29 @@
 
             $date = htmlspecialchars($item['date']);
             $title = htmlspecialchars($item['title']);
-            $is_done = $item['isdone'] == true;
+            $is_done = $item['isdone'] === true;
+
+            $additionalClasses = '';
+            // добавление класса, если задача выполнена
+            if ($is_done) {
+                $additionalClasses .= ' task--completed';
+            }
+            // добавление класса, если задача не выполнена, а до конца выполнения меньше 24 часов
+            if (check_date($date) && !$is_done) {
+                $additionalClasses .= ' task--important';
+            }
         ?>
-            <tr class="tasks__item task 
-                <?php
-                // добавление класса, если задача выполнена
-                if ($is_done) {
-                    print($task_classes['is_done']);
-                }
-                // добавление класса, если задача не выполнена, а до конца выполнения меньше 24 часов
-                if (check_date($date) && !$is_done) {
-                    print($task_classes['is_important']);
-                } ?>
-            ">
+            <tr class="tasks__item task  <?= $additionalClasses; ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($item['isdone'] == true) { ?>checked<?php } ?> value="1">
-                        <span class="checkbox__text"><?= $title ?></span>
+                        <span class="checkbox__text"><?= $title; ?></span>
                     </label>
                 </td>
                 <!-- <td class="task__file">
                     <a class="download-link" href="#">Home.psd</a>
                 </td> -->
-                <td class="task__date"><?= $date ?></td>
+                <td class="task__date"><?= $date; ?></td>
 
                 <td class="task__controls">
                 </td>
