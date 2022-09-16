@@ -1,0 +1,31 @@
+CREATE DATABASE doingsdone
+	DEFAULT CHARACTER SET utf8
+	DEFAULT COLLATE utf8_general_ci;
+
+USE doingsdone;
+
+CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	registration_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	name varchar(128) NOT NULL,
+	email varchar(128) NOT NULL UNIQUE,
+	password varchar(128) NOT NULL
+);
+
+CREATE TABLE categories (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title varchar(128) NOT NULL,
+	user_id INT NOT NULL
+);
+
+CREATE TABLE tasks (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	finish_at TIMESTAMP NULL,
+	STATUS BOOLEAN NOT NULL DEFAULT '0',
+	name varchar(128) NOT NULL,
+	file_adress varchar(128),
+	category_id INT NOT NULL,
+	user_id INT(128) NOT NULL
+);
+
